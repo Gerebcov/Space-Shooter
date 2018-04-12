@@ -73,6 +73,7 @@
      <Compile Include="Assets\Scripts\BaseGameObject.cs" />
      <Compile Include="Assets\Scripts\Bullet.cs" />
      <Compile Include="Assets\Scripts\GameController.cs" />
+     <Compile Include="Assets\Scripts\GravityZone.cs" />
      <Compile Include="Assets\Scripts\InputController.cs" />
      <Compile Include="Assets\Scripts\LevelController.cs" />
      <Compile Include="Assets\Scripts\Rocket.cs" />

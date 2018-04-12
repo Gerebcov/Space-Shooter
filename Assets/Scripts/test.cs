@@ -25,7 +25,8 @@ public class test : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+		player.centerOfMass = Vector2.zero;
+
 	}
 	
 	// Update is called once per frame
@@ -54,12 +55,13 @@ public class test : MonoBehaviour {
 		Camera.main.transform.position = player.transform.position - (Vector3.forward * 1000);
 
 		forse = player.velocity.magnitude;
+//		player.drag = (player.velocity.sqrMagnitude / (maxSpeed * maxSpeed)) / (1 - ((player.velocity.sqrMagnitude) / (maxSpeed * maxSpeed)));
 	}
 
 	public IEnumerator Move()
 	{
 		while (Input.GetMouseButton(0)) {
-			player.AddForce(player.transform.up * speed * TimeManager.LevelFrameTime); 
+			player.AddForce(player.transform.up * speed * Time.deltaTime, ForceMode2D.Impulse); 
 //			float speedPrsent = player.velocity.magnitude / maxSpeed;
 //			if (speedPrsent > 1)
 //				player.velocity = player.velocity / speedPrsent;
