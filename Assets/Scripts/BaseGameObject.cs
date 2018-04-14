@@ -6,6 +6,7 @@ public class BaseGameObject : MonoBehaviour {
 
 	[SerializeField]
 	bool imortal;
+	public bool IsImortal {get {return imortal;}}
 	[SerializeField]
 	float maxHealsPoint;
 	float healsPoint;
@@ -18,6 +19,11 @@ public class BaseGameObject : MonoBehaviour {
 			}
 		}
 	}
+	[SerializeField]
+	Defenses[] defenses;
+
+
+	public Rigidbody2D Rigidbody;
 
 	public void Dead()
 	{
@@ -25,15 +31,31 @@ public class BaseGameObject : MonoBehaviour {
 	}
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		Inicialization ();
+		if(!Rigidbody)
+			Rigidbody = GetComponent<Rigidbody2D> ();
 	}
 
 	public void Inicialization()
 	{
-		if (imortal)
+		if (IsImortal)
 			return;
 		HealsPoint = maxHealsPoint;
+	}
+
+	public void AddedDamage(float Damage, Constants.DamageTypes type)
+	{
+		if (IsImortal)
+			return;
+		float defensePersent = 0;
+		foreach (Defenses D in defenses) {
+			if (D.DefenseType == type) {
+				defensePersent = D.DefensePersent;
+				break;
+			}
+		}
+		HealsPoint -= Damage * (1 - defensePersent);
 	}
 	
 	// Update is called once per frame
@@ -41,7 +63,16 @@ public class BaseGameObject : MonoBehaviour {
 		
 	}
 	void OnCollisionEnter2D(Collision2D collision) {
+		if (IsImortal)
+			return;
 		float power = collision.relativeVelocity.magnitude;
-		HealsPoint -= power / 10;
+		AddedDamage(power / 10 / Rigidbody.mass, Constants.DamageTypes.Kinetic);
 	}
+}
+[System.Serializable]
+public class Defenses
+{
+	public Constants.DamageTypes DefenseType;
+	[Range(0, 1)]
+	public float DefensePersent;
 }

@@ -76,7 +76,10 @@ public class test : MonoBehaviour {
 			if (lastFireTime < TimeManager.LevelTime) {
 				foreach (Transform T in weapon) {
 					GameObject g = (GameObject) Instantiate (buletSample, T.position, T.rotation);
-					g.GetComponent<Rigidbody2D>().AddForce (player.velocity, ForceMode2D.Impulse);
+					Rigidbody2D[] rigi = g.GetComponentsInChildren<Rigidbody2D> ();
+					foreach (Rigidbody2D r in rigi) {
+						r.velocity = player.velocity;
+					}
 				}
 				lastFireTime = TimeManager.LevelTime + atackSpeed;
 			}

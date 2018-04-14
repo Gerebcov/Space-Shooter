@@ -9,12 +9,14 @@ public class StateManager : MonoBehaviour {
 	protected State[] stages = null;
 	protected State currentState = null;
 
-	protected void InitializeStages(int StageLength, State[] Stages)
+	protected void InitializeStateManager(System.Type Enum)
 	{
-		stages = new State[StageLength];
-		foreach (State S in Stages) {
-			stages [S.StateID] = S;
-		}
+		stages = new State[System.Enum.GetNames (Enum).Length];
+	}
+
+	protected void InitializeState (int ID, StateMethod StartState, StateMethod UpdateState, StateMethod EndState)
+	{
+		stages [ID] = new State(StartState, UpdateState, EndState);
 	}
 
 	protected void SetState(int StateID)
@@ -49,9 +51,8 @@ public class State
 	public StateMethod UpdateState;
 	public StateMethod EndState;
 
-	public State (int ID, StateMethod Start, StateMethod Update, StateMethod End)
+	public State (StateMethod Start, StateMethod Update, StateMethod End)
 	{
-		StateID = ID;
 		StartState = Start;
 		UpdateState = Update;
 		EndState = End;
