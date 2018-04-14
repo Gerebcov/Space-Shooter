@@ -7,7 +7,7 @@ public class ExplosionForceSimulator : MonoBehaviour {
 
 	List<Rigidbody2D> Rigidbodys = new List<Rigidbody2D>();
 	[SerializeField]
-	CircleCollider2D collider;
+	CircleCollider2D collider = null;
 	public float Range;
 	float sqrRange;
 	public float Force;
@@ -38,9 +38,10 @@ public class ExplosionForceSimulator : MonoBehaviour {
 				BaseGameObject go = R.GetComponent<BaseGameObject> ();
 				Vector2 vector = R.position - (Vector2)transform.position;
 				float sqrDistanse = vector.sqrMagnitude;
-				R.AddForce ((sqrDistanse / sqrRange) * vector.normalized * Force, ForceMode2D.Impulse);
+				R.AddForce ((1 - Mathf.Min(sqrDistanse / sqrRange, 1)) * vector.normalized * Force, ForceMode2D.Impulse);
 				if (go)
-					go.AddedDamage ((sqrDistanse / sqrRange) * Damage, Constants.DamageTypes.Explosion);
+					go.AddedDamage ((1 - Mathf.Min(sqrDistanse / sqrRange, 1)) * Damage, Constants.DamageTypes.Explosion);
+				
 			}
 			
 		}

@@ -52,7 +52,7 @@ public class test : MonoBehaviour {
 		float rotation_z = Mathf.Atan2(-mousePosition.normalized.x, mousePosition.normalized.y) * Mathf.Rad2Deg;
 		player.transform.rotation = Quaternion.Euler(0f, 0f, rotation_z);    
 
-		Camera.main.transform.position = player.transform.position - (Vector3.forward * 1000);
+		Camera.main.transform.position = (Vector3)player.position + (Vector3.forward * Camera.main.transform.position.z);
 
 		forse = player.velocity.magnitude;
 //		player.drag = (player.velocity.sqrMagnitude / (maxSpeed * maxSpeed)) / (1 - ((player.velocity.sqrMagnitude) / (maxSpeed * maxSpeed)));

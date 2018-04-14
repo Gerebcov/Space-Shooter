@@ -9,6 +9,6 @@ public static class Constants  {
 		Kinetic,
 		Explosion,
 		Energy,
-		Laser
+		Photonic
 	}
 }

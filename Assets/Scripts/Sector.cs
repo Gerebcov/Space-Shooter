@@ -7,17 +7,19 @@ using UnityEngine;
 public class Sector : MonoBehaviour {
 
 	[SerializeField]
-	float sectorRange;
+	float sectorRange = 1000;
 	[SerializeField]
 	float sectorWallRange = 100;
 
 	[SerializeField]
-	CircleCollider2D sectorZone, sectorWall;
+	CircleCollider2D sectorZone = null, sectorWall = null;
 
 	[SerializeField]
-	GameObject asteroidSample;
+	GameObject asteroidSample = null;
 	[SerializeField]
 	int maxAsteroid = 10;
+	[SerializeField]
+	float minForse = 0, maxForse = 20;
 
 
 	GameObject[] asteroids;
@@ -45,11 +47,12 @@ public class Sector : MonoBehaviour {
 				if (asteroids [i] == null) {
 					Vector3 spaynVector = new Vector3 (Random.Range (-1, 1), Random.Range (-1, 1), 0);
 					if (spaynVector.magnitude == 0)
-						spaynVector = Vector3.up;
+						spaynVector = Vector3.up * Random.Range(0.1f, 1);
 					float angle = Random.Range (0, 360);
-					GameObject newAsteroid = (GameObject)Instantiate (asteroidSample, transform.position + (spaynVector * sectorRange), Quaternion.Euler (0, 0, angle));
+					GameObject newAsteroid = (GameObject)Instantiate (asteroidSample, transform.position + (spaynVector.normalized * sectorRange), Quaternion.Euler (0, 0, angle));
 					asteroids[i] = newAsteroid;
-					newAsteroid.GetComponent<Rigidbody2D> ().AddForce (newAsteroid.transform.up * Random.Range (15, 40), ForceMode2D.Impulse);
+					newAsteroid.transform.parent = transform;
+					newAsteroid.GetComponent<Rigidbody2D> ().AddForce (newAsteroid.transform.up * Random.Range (minForse, maxForse), ForceMode2D.Impulse);
 				}
 			}
 			yield return null;

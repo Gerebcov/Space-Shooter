@@ -21,7 +21,7 @@ public class GravityZone : MonoBehaviour {
 			if (rigi[i] != null) {
 				float sqrDistans = (((Vector2)(transform.position - rigi[i].transform.position)).sqrMagnitude / (range * range));
 				float forse = ((mass * rigi[i].mass) / sqrDistans) * GConstans;
-				rigi[i].velocity += ((Vector2)(transform.position - rigi[i].transform.position)).normalized * forse * Time.fixedDeltaTime;
+				rigi[i].velocity += ((Vector2)(transform.position - rigi[i].transform.position)).normalized * forse * TimeManager.LevelFixedDeltaTime;
 			} else {
 				rigi.RemoveAt (i);
 				i--;

@@ -5,19 +5,11 @@ using UnityEngine;
 [RequireComponent(typeof(AutoDestroy))]
 public class BaseBullet : MonoBehaviour {
 
-	public enum BulledTypes
-	{
-		Kinetic,
-		Explosion,
-		Energy,
-		Laser
-	}
-
 	public float Damage;
 
 	public virtual void Contact(BaseGameObject Object)
 	{
-		
+		Destroy (gameObject);
 	}
 
 	void OnTriggerEnter2D(Collider2D collider)

@@ -7,11 +7,9 @@ public class ExplosionBullet : BaseBullet {
 	[SerializeField]
 	GameObject ExplosionForce;
 
-	public override void Contact (BaseGameObject Object)
+	void OnDestroy()
 	{
-		ExplosionForce.transform.parent = null;
-		ExplosionForce.SetActive (true);
-		Destroy (gameObject);
+		Instantiate (ExplosionForce, transform.position, Quaternion.identity);
 	}
 
 }
