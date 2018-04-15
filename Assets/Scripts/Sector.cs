@@ -36,6 +36,7 @@ public class Sector : MonoBehaviour {
 			float angle = Random.Range (0, 360);
 			GameObject g = (GameObject)Instantiate (asteroidSample, spaynPoint, Quaternion.Euler(0, 0, angle));
 			asteroids[i] = g;
+			g.transform.parent = transform;
 		}
 		StartCoroutine (Spayner ());
 	}

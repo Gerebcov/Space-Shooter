@@ -23,10 +23,22 @@ public class test : MonoBehaviour {
 	[SerializeField]
 	Transform[] weapon;
 
+	[SerializeField]
+	BaseWeapon[] weaponsPrototype;
+	[SerializeField]
+	Transform[] weaponAtachPoints; 
+
+	[SerializeField]
+	public event System.Action StartFire;
+	[SerializeField]
+	public event System.Action StopFire;
+
 	// Use this for initialization
 	void Start () {
 		player.centerOfMass = Vector2.zero;
-
+		for (int i = 0; i < weaponsPrototype.Length; i++) {
+			weaponsPrototype [i].Establish (StartFire, StopFire, player, weaponAtachPoints [i]);
+		}
 	}
 	
 	// Update is called once per frame
@@ -41,10 +53,14 @@ public class test : MonoBehaviour {
 		}
 
 		if (Input.GetMouseButtonDown (1)) {
-			StartCoroutine(Fire());
+			if(StartFire != null)
+				StartFire ();
+//			StartCoroutine(Fire());
 		}
 		if (Input.GetMouseButtonUp (1)) {
-			StopCoroutine(Fire());
+			if(StopFire != null)
+				StopFire ();
+//			StopCoroutine(Fire());
 		}
 
 

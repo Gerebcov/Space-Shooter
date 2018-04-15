@@ -2,33 +2,58 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseWeapon : MonoBehaviour {
+public class BaseWeapon : StateManager {
 	
-	protected bool fireOnOff = false;
+	[SerializeField]
+	protected float reloadingTime;
+	protected float reloadingProgerss = 1;
+	public bool Charged{
+		get{return reloadingProgerss == 1;}
+	}
+	[SerializeField]
+	protected GameObject BulletSaple;
+	[SerializeField]
+	protected Rigidbody2D rigidbodyParent;
 
-	[SerializeField]
-	protected float [] SpeedFire;
-	protected float lastFireTime;
-	[SerializeField]
-	protected float[] damage;
-	protected Rigidbody2D player;
+	public void Establish(System.Action ActionStart, System.Action ActionStop, Rigidbody2D Rigidbody, Transform AttachmentAnchor)
+	{
+		ActionStart += FireStart;
+		ActionStop += FireEnd;
+		rigidbodyParent = Rigidbody;
+		Attachment (AttachmentAnchor);
+	}
+
+	public void Attachment(Transform AttachmentAnchor)
+	{
+		transform.parent = AttachmentAnchor;
+		transform.localPosition = Vector3.zero;
+		transform.localRotation = Quaternion.identity;
+		transform.localScale = Vector3.one;
+	}
 
 
 	public virtual void FireStart ()
 	{
-		fireOnOff = true;
-		StartCoroutine (FireUpdate());
-	}
-
-	protected virtual IEnumerator FireUpdate ()
-	{
-		yield return null;
+		
 	}
 
 	public virtual void FireEnd ()
 	{
-		StopCoroutine (FireUpdate());
-		fireOnOff = false;
+		
+	}
+
+	public virtual void Fire()
+	{
+		reloadingProgerss = 0;
+		StartCoroutine (Reloading ());
+	}
+
+	IEnumerator Reloading()
+	{
+		while(!Charged){
+			reloadingProgerss = Mathf.Min(reloadingProgerss + (TimeManager.LevelFrameTime / reloadingTime), 1);
+			yield return null;
+		}
 	}
 
 }
