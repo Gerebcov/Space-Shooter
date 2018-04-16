@@ -37,9 +37,7 @@ public class test : MonoBehaviour {
 	void Start () {
 		player.centerOfMass = Vector2.zero;
 		for (int i = 0; i < weaponsPrototype.Length; i++) {
-			weaponsPrototype [i].Establish (StartFire, StopFire, player, weaponAtachPoints [i]);
-			StartFire += weaponsPrototype [i].FireStart;
-			StopFire += weaponsPrototype [i].FireEnd;
+			weaponsPrototype [i].Establish (ref StartFire, ref StopFire, player, weaponAtachPoints [i]);
 		}
 	}
 	

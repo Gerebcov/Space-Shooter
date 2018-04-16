@@ -15,7 +15,7 @@ public class BaseWeapon : StateManager {
 	[SerializeField]
 	protected Rigidbody2D rigidbodyParent;
 
-	public void Establish(System.Action ActionStart, System.Action ActionStop, Rigidbody2D Rigidbody, Transform AttachmentAnchor)
+	public void Establish(ref System.Action ActionStart, ref System.Action ActionStop, Rigidbody2D Rigidbody, Transform AttachmentAnchor)
 	{
 		ActionStart += FireStart;
 		ActionStop += FireEnd;
