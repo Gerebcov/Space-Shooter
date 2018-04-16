@@ -1,18 +1,20 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Sector.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\test.cs">
     <Files>
-      <File FileName="Assets\Scripts\GravityZone.cs" Line="24" Column="138" />
-      <File FileName="Assets\Scripts\test.cs" Line="55" Column="115" />
-      <File FileName="Assets\Scripts\BaseGameObject.cs" Line="50" Column="11" />
-      <File FileName="Assets\Scripts\Sector.cs" Line="52" Column="116" />
-      <File FileName="Assets\Scripts\Constants.cs" Line="12" Column="4" />
-      <File FileName="Assets\Scripts\StateManager.cs" Line="17" Column="30" />
-      <File FileName="Assets\Scripts\RunTime\BaseEngine.cs" Line="29" Column="35" />
-      <File FileName="Assets\Scripts\RunTime\Weapon Types\ExplosionForceSimulator.cs" Line="10" Column="27" />
-      <File FileName="Assets\Scripts\RunTime\Weapon Types\ExplosionBullet.cs" Line="12" Column="1" />
-      <File FileName="Assets\Scripts\RunTime\Weapon Types\BaseBullet.cs" Line="12" Column="10" />
-      <File FileName="Assets\Scripts\RunTime\Helpers\AutoRotate.cs" Line="12" Column="64" />
+      <File FileName="Assets\Scripts\GravityZone.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\test.cs" Line="33" Column="18" />
+      <File FileName="Assets\Scripts\BaseGameObject.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Sector.cs" Line="39" Column="35" />
+      <File FileName="Assets\Scripts\Constants.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\StateManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\RunTime\BaseEngine.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\RunTime\Weapon Types\ExplosionForceSimulator.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\RunTime\Weapon Types\ExplosionBullet.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\RunTime\Weapon Types\BaseBullet.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\RunTime\Helpers\AutoRotate.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\WeaponScripts\BaseWeapon.cs" Line="22" Column="1" />
+      <File FileName="Assets\Scripts\WeaponScripts\FlareGun.cs" Line="5" Column="22" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

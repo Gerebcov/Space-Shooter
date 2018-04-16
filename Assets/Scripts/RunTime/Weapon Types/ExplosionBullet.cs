@@ -5,7 +5,7 @@ using UnityEngine;
 public class ExplosionBullet : BaseBullet {
 
 	[SerializeField]
-	GameObject ExplosionForce;
+	GameObject ExplosionForce = null;
 
 	void OnDestroy()
 	{

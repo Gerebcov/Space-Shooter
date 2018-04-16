@@ -5,10 +5,10 @@ using UnityEngine;
 public class BaseGameObject : MonoBehaviour {
 
 	[SerializeField]
-	bool imortal;
+	bool imortal = false;
 	public bool IsImortal {get {return imortal;}}
 	[SerializeField]
-	float maxHealsPoint;
+	float maxHealsPoint = 0;
 	float healsPoint;
 	public float HealsPoint{
 		get{ return healsPoint;} 
@@ -20,13 +20,17 @@ public class BaseGameObject : MonoBehaviour {
 		}
 	}
 	[SerializeField]
-	Defenses[] defenses;
+	GameObject DeadFX = null;
+	[SerializeField]
+	Defenses[] defenses = null;
 
 
 	public Rigidbody2D Rigidbody;
 
 	public void Dead()
 	{
+		if(DeadFX)
+			Instantiate (DeadFX, transform.position, transform.rotation, transform.parent);
 		Destroy (gameObject);
 	}
 

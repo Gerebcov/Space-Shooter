@@ -13,16 +13,16 @@ public class BaseEngine : StateManager {
 	[SerializeField]
 	public Rigidbody2D Rigidbody;
 	[SerializeField]
-	float  Forse, mass;
-
+	float  Forse;
+	public float mass;
 	[SerializeField]
 	float sqrMaxSpeed;
 
 	[SerializeField]
-	bool AutoStart;
+	bool AutoStart = false;
 
 	[SerializeField]
-	ParticleSystem particle;
+	ParticleSystem particle = null;
 
 	public void CalculateMaxSpeed()
 	{

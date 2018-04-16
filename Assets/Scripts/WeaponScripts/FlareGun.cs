@@ -5,11 +5,11 @@ using UnityEngine;
 public class FlareGun : BaseWeapon {
 
 	[SerializeField]
-	Rigidbody2D[] rocketRigibodys;
+	Rocket rocket = null;
 	[SerializeField]
-	float startImpulse;
+	float startImpulse = 0;
 	[SerializeField]
-	Transform spaunPoint;
+	Transform spaunPoint = null;
 
 	enum FlareGunStates
 	{
@@ -19,7 +19,7 @@ public class FlareGun : BaseWeapon {
 
 	void Start()
 	{
-		rocketRigibodys = BulletSaple.GetComponentsInChildren<Rigidbody2D> ();
+		rocket = BulletSaple.GetComponent<Rocket> ();
 		InitializeStateManager (typeof(FlareGunStates));
 		InitializeState ((int)FlareGunStates.Idle,
 			null,
@@ -53,11 +53,10 @@ public class FlareGun : BaseWeapon {
 
 	public override void Fire ()
 	{
-		foreach (Rigidbody2D R in rocketRigibodys) {
-			R.velocity = rigidbodyParent.velocity;
-			R.AddForce (startImpulse * R.transform.up, ForceMode2D.Impulse);
-		}
+		rocket.startImpulse = startImpulse;
+		rocket.startVelosity = rigidbodyParent.velocity;
 		Instantiate (BulletSaple, spaunPoint.position, spaunPoint.rotation);
+
 		base.Fire ();
 	}
 

@@ -50,8 +50,10 @@ public class BaseWeapon : StateManager {
 
 	IEnumerator Reloading()
 	{
-		while(!Charged){
-			reloadingProgerss = Mathf.Min(reloadingProgerss + (TimeManager.LevelFrameTime / reloadingTime), 1);
+		while(true){
+			reloadingProgerss = Mathf.Min(reloadingProgerss + (Time.deltaTime / reloadingTime), 1);
+			if (Charged)
+				break;
 			yield return null;
 		}
 	}

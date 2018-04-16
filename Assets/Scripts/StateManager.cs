@@ -17,6 +17,7 @@ public class StateManager : MonoBehaviour {
 	protected void InitializeState (int ID, StateMethod StartState, StateMethod UpdateState, StateMethod EndState)
 	{
 		stages [ID] = new State(StartState, UpdateState, EndState);
+
 	}
 
 	protected void SetState(int StateID)
@@ -30,13 +31,15 @@ public class StateManager : MonoBehaviour {
 		StartCoroutine (StateUpdate ());
 	}
 
-	private IEnumerator StateUpdate()
+	IEnumerator StateUpdate()
 	{
-		if (currentState != null && currentState.UpdateState != null) {
-			while (true) {
+		while (true) {
+			if (currentState != null && currentState.UpdateState != null) {
 				currentState.UpdateState ();
-				yield return null;
+			} else {
+				break;
 			}
+			yield return null;
 		}
 	}
 }
