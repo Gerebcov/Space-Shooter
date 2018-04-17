@@ -34,12 +34,12 @@ public class FlareGun : BaseWeapon {
 		SetState((int)FlareGunStates.Idle);
 	}
 
-	public override void FireStart ()
+	public override void ActivateItem ()
 	{
 		SetState ((int)FlareGunStates.Fire);
 	}
 
-	public override void FireEnd ()
+	public override void DeactivateItem ()
 	{
 		SetState ((int)FlareGunStates.Idle);
 	}

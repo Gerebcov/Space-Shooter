@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseEngine : StateManager {
+public class BaseEngine : Item {
 
 	public enum EngineStates
 	{
@@ -14,7 +14,7 @@ public class BaseEngine : StateManager {
 	public Rigidbody2D Rigidbody;
 	[SerializeField]
 	float  Forse;
-	public float mass;
+	public float UnitMass;
 	[SerializeField]
 	float sqrMaxSpeed;
 
@@ -26,7 +26,7 @@ public class BaseEngine : StateManager {
 
 	public void CalculateMaxSpeed()
 	{
-		sqrMaxSpeed = Mathf.Pow(Forse / mass, 2);
+		sqrMaxSpeed = Mathf.Pow(Forse / UnitMass, 2);
 	}
 
 	// Use this for initialization
@@ -48,7 +48,23 @@ public class BaseEngine : StateManager {
 		}
 	}
 	
-	// Update is called once per frame
+	public override void Establish(Module module)
+	{
+		Rigidbody = module.OwnerUnit.Rigidbodies[0];
+		Attachment (module.AttachmentAnchor);
+		UnitMass = module.OwnerUnit.Mass;
+		CalculateMaxSpeed ();
+	}
+
+	public override void ActivateItem()
+	{
+		SetState ((int)EngineStates.Activ);
+	}
+
+	public override void DeactivateItem()
+	{
+		SetState ((int)EngineStates.Idle);
+	}
 
 	void ActivStartHendler()
 	{

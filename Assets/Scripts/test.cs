@@ -36,9 +36,7 @@ public class test : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		player.centerOfMass = Vector2.zero;
-		for (int i = 0; i < weaponsPrototype.Length; i++) {
-			weaponsPrototype [i].Establish (ref StartFire, ref StopFire, player, weaponAtachPoints [i]);
-		}
+
 	}
 	
 	// Update is called once per frame

@@ -25,6 +25,7 @@ public class BaseGameObject : MonoBehaviour {
 	Defenses[] defenses = null;
 
 
+
 	public Rigidbody2D Rigidbody;
 
 	public void Dead()

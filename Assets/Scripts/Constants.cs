@@ -11,4 +11,29 @@ public static class Constants  {
 		Energy,
 		Photonic
 	}
+
+	public enum ModuleTypes
+	{
+		Weapon,
+		Engine,
+		Armor,
+		Universal
+	}
+
+	public enum ModeleSizes
+	{
+		Small,
+		Medium,
+		Large
+	}
+
+	public enum UnitActionGroupTypes
+	{
+		Weapon,
+		Engine,
+		Special,
+		Group1,
+		Group2,
+		Group3
+	}
 }

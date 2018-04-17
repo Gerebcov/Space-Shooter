@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseWeapon : StateManager {
+public class BaseWeapon : Item {
 	
 	[SerializeField]
 	protected float reloadingTime;
@@ -15,31 +15,10 @@ public class BaseWeapon : StateManager {
 	[SerializeField]
 	protected Rigidbody2D rigidbodyParent;
 
-	public void Establish(ref System.Action ActionStart, ref System.Action ActionStop, Rigidbody2D Rigidbody, Transform AttachmentAnchor)
+	public override void Establish(Module module)
 	{
-		ActionStart += FireStart;
-		ActionStop += FireEnd;
-		rigidbodyParent = Rigidbody;
-		Attachment (AttachmentAnchor);
-	}
-
-	public void Attachment(Transform AttachmentAnchor)
-	{
-		transform.parent = AttachmentAnchor;
-		transform.localPosition = Vector3.zero;
-		transform.localRotation = Quaternion.identity;
-		transform.localScale = Vector3.one;
-	}
-
-
-	public virtual void FireStart ()
-	{
-		
-	}
-
-	public virtual void FireEnd ()
-	{
-		
+		rigidbodyParent = module.OwnerUnit.Rigidbodies[0];
+		Attachment (module.AttachmentAnchor);
 	}
 
 	public virtual void Fire()
