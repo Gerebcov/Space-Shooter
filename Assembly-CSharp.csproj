@@ -72,6 +72,7 @@
      <Compile Include="Assets\Polarith\AI\Examples\Scripts\VehiclePhysics.cs" />
      <Compile Include="Assets\Scripts\BaseGameObject.cs" />
      <Compile Include="Assets\Scripts\Constants.cs" />
+     <Compile Include="Assets\Scripts\Enams.cs" />
      <Compile Include="Assets\Scripts\GameController.cs" />
      <Compile Include="Assets\Scripts\GravityZone.cs" />
      <Compile Include="Assets\Scripts\InputController.cs" />

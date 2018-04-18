@@ -13,9 +13,9 @@ public class KineticBullet : BaseBullet {
 
 	public override void Contact (BaseGameObject Object)
 	{
-		Vector2 deltaVlocity = Rigidbody.velocity - Object.Rigidbody.velocity;
+		Vector2 deltaVlocity = Rigidbody.velocity - Object.Rigidbodies[0].velocity;
 		Damage = deltaVlocity.magnitude * Rigidbody.mass;
-		Object.Rigidbody.AddForce (deltaVlocity.normalized * Damage, ForceMode2D.Impulse);
+		Object.Rigidbodies[0].AddForce (deltaVlocity.normalized * Damage, ForceMode2D.Impulse);
 	}
 
 }

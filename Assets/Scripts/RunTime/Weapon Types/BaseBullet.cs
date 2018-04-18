@@ -6,10 +6,12 @@ using UnityEngine;
 public class BaseBullet : MonoBehaviour {
 
 	public float Damage;
+	public Fractions fraction = Fractions.Environment;
 
 	public virtual void Contact(BaseGameObject Object)
 	{
-		Destroy (gameObject);
+		if(Object.Fraction != fraction)
+			Destroy (gameObject);
 	}
 
 	void OnTriggerEnter2D(Collider2D collider)

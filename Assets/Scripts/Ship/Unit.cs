@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Unit : MonoBehaviour {
+public class Unit : BaseGameObject {
 
-	[SerializeField]
-	string unitName;
-	public string UnitName{
+
+	public override string UnitName{
 		get{
 			if (unitName == "")
 				unitName = "Uniy №" + gameObject.GetInstanceID ();
@@ -14,21 +13,24 @@ public class Unit : MonoBehaviour {
 		}
 	}
 
-	public Rigidbody2D[] Rigidbodies;
-	public float Mass{
-		get{
-			float mass = 0;
-			foreach (Rigidbody2D R in Rigidbodies)
-				mass += R.mass;
-			return mass;
-		}
-	}
-
-	public Module[] Modules;
+	[SerializeField]
+	Module[] Modules;
 
 	public List<ActionGroup> ActionGroups = new List<ActionGroup> ();
 
-	public void AddedModuleInGroup(Module module, Constants.UnitActionGroupTypes groupType)
+	void Awake()
+	{
+		Inicialization ();
+		foreach (Module M in Modules) {
+			M.OwnerUnit = this;
+			if (M.AnchoredItem != null) {
+				M.AttachmentItem (M.AnchoredItem);
+				AddedModuleInGroup (M, M.startActionGroup);
+			}
+		}
+	}
+
+	public void AddedModuleInGroup(Module module, UnitActionGroupTypes groupType)
 	{
 		foreach (ActionGroup G in ActionGroups) 
 		{
@@ -42,7 +44,7 @@ public class Unit : MonoBehaviour {
 		ActionGroups.Add (new ActionGroup (groupType, module));
 	}
 
-	public void RemoveModuleInGroup(Module module, Constants.UnitActionGroupTypes groupType)
+	public void RemoveModuleInGroup(Module module, UnitActionGroupTypes groupType)
 	{
 		foreach (ActionGroup G in ActionGroups) 
 		{
@@ -56,7 +58,7 @@ public class Unit : MonoBehaviour {
 		}
 	}
 
-	public void ActivateGroup(Constants.UnitActionGroupTypes Type)
+	public void ActivateGroup(UnitActionGroupTypes Type)
 	{
 		foreach (ActionGroup G in ActionGroups) 
 		{
@@ -68,7 +70,7 @@ public class Unit : MonoBehaviour {
 		}
 	}
 
-	public void DeactivateGroup(Constants.UnitActionGroupTypes Type)
+	public void DeactivateGroup(UnitActionGroupTypes Type)
 	{
 		foreach (ActionGroup G in ActionGroups) 
 		{

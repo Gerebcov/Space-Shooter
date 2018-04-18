@@ -53,6 +53,7 @@ public class FlareGun : BaseWeapon {
 
 	public override void Fire ()
 	{
+		rocket.fraction = fraction;
 		rocket.startImpulse = startImpulse;
 		rocket.startVelosity = rigidbodyParent.velocity;
 		Instantiate (BulletSaple, spaunPoint.position, spaunPoint.rotation);

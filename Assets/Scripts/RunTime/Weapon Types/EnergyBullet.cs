@@ -6,7 +6,7 @@ public class EnergyBullet : BaseBullet {
 
 	public override void Contact (BaseGameObject Object)
 	{
-		Object.AddedDamage (Damage, Constants.DamageTypes.Energy);
+		Object.AddedDamage (Damage, DamageTypes.Energy);
 		Destroy (gameObject);
 	}
 }

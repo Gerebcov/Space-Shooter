@@ -3,6 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BaseGameObject : MonoBehaviour {
+	
+
+	[SerializeField]
+	protected string unitName;
+	public virtual string UnitName{
+		get{
+			if (unitName == "")
+				unitName = "Object №" + gameObject.GetInstanceID ();
+			return unitName;
+		}
+	}
+
+	[SerializeField]
+	Fractions fraction = Fractions.Environment;
+	public Fractions Fraction{get {return fraction;} protected set{fraction = value;}}
 
 	[SerializeField]
 	bool imortal = false;
@@ -26,7 +41,20 @@ public class BaseGameObject : MonoBehaviour {
 
 
 
-	public Rigidbody2D Rigidbody;
+	public Rigidbody2D[] Rigidbodies;
+
+	public float Mass{
+		get{
+			float mass = 0;
+			foreach (Rigidbody2D R in Rigidbodies)
+				mass += R.mass;
+			return mass;
+		}
+		set{
+			foreach (Rigidbody2D R in Rigidbodies)
+				R.mass += value / Rigidbodies.Length;
+		}
+	}
 
 	public void Dead()
 	{
@@ -38,18 +66,18 @@ public class BaseGameObject : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
 		Inicialization ();
-		if(!Rigidbody)
-			Rigidbody = GetComponent<Rigidbody2D> ();
 	}
 
 	public void Inicialization()
 	{
+		if(Rigidbodies.Length == 0)
+			Rigidbodies = GetComponentsInChildren<Rigidbody2D> ();
 		if (IsImortal)
 			return;
 		HealsPoint = maxHealsPoint;
 	}
 
-	public void AddedDamage(float Damage, Constants.DamageTypes type)
+	public void AddedDamage(float Damage, DamageTypes type)
 	{
 		if (IsImortal)
 			return;
@@ -71,13 +99,13 @@ public class BaseGameObject : MonoBehaviour {
 		if (IsImortal)
 			return;
 		float power = collision.relativeVelocity.magnitude;
-		AddedDamage(power / 10 / Rigidbody.mass, Constants.DamageTypes.Kinetic);
+		AddedDamage(power / 10 / Mass, DamageTypes.Kinetic);
 	}
 }
 [System.Serializable]
 public class Defenses
 {
-	public Constants.DamageTypes DefenseType;
+	public DamageTypes DefenseType;
 	[Range(0, 1)]
 	public float DefensePersent;
 }

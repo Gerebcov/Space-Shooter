@@ -11,10 +11,10 @@ public class BaseEngine : Item {
 	}
 	
 	[SerializeField]
-	public Rigidbody2D Rigidbody;
+	Rigidbody2D Rigidbody;
 	[SerializeField]
-	float  Forse;
-	public float UnitMass;
+	float Forse;
+	float UnitMass;
 	[SerializeField]
 	float sqrMaxSpeed;
 

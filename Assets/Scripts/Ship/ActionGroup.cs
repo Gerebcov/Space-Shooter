@@ -5,10 +5,11 @@ using UnityEngine;
 [System.Serializable]
 public class ActionGroup {
 
-	public Constants.UnitActionGroupTypes GroupType;
-	public List<Module> Modules = new List<Module> ();
+	public UnitActionGroupTypes GroupType;
+	List<Module> modules = new List<Module> ();
+	public List<Module> Modules{get { return modules; }}
 
-	public ActionGroup(Constants.UnitActionGroupTypes type, Module module)
+	public ActionGroup(UnitActionGroupTypes type, Module module)
 	{
 		Modules.Add (module);
 		GroupType = type;

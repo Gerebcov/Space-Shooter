@@ -7,7 +7,7 @@ public class BaseWeapon : Item {
 	[SerializeField]
 	protected float reloadingTime;
 	protected float reloadingProgerss = 1;
-	public bool Charged{
+	protected bool Charged{
 		get{return reloadingProgerss == 1;}
 	}
 	[SerializeField]
@@ -15,9 +15,12 @@ public class BaseWeapon : Item {
 	[SerializeField]
 	protected Rigidbody2D rigidbodyParent;
 
+	protected Fractions fraction = Fractions.Environment;
+
 	public override void Establish(Module module)
 	{
 		rigidbodyParent = module.OwnerUnit.Rigidbodies[0];
+		fraction = module.OwnerUnit.Fraction;
 		Attachment (module.AttachmentAnchor);
 	}
 

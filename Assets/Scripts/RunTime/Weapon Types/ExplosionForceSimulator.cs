@@ -40,7 +40,7 @@ public class ExplosionForceSimulator : MonoBehaviour {
 				float sqrDistanse = vector.sqrMagnitude;
 				R.AddForce ((1 - Mathf.Min(sqrDistanse / sqrRange, 1)) * vector.normalized * Force, ForceMode2D.Impulse);
 				if (go)
-					go.AddedDamage ((1 - Mathf.Min(sqrDistanse / sqrRange, 1)) * Damage, Constants.DamageTypes.Explosion);
+					go.AddedDamage ((1 - Mathf.Min(sqrDistanse / sqrRange, 1)) * Damage, DamageTypes.Explosion);
 				
 			}
 			

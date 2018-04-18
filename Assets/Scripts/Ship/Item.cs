@@ -8,11 +8,15 @@ public class Item : StateManager {
 	float mass;
 
 	[SerializeField]
-	public Constants.ModuleTypes ItemTypes;
+	ModuleTypes itemTypes;
+	public ModuleTypes ItemTypes{get { return itemTypes; } private set{itemTypes = value; }}
+	[SerializeField]
+	ModeleSizes itemSize;
+	public ModeleSizes ItemSize{get { return itemSize; } private set{itemSize = value; }}
 
-	public virtual void Establish( Module module)
+	public virtual void Establish(Module module)
 	{
-
+		module.OwnerUnit.Mass += mass;
 	}
 
 	public virtual void PullOff()

@@ -2,16 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 [System.Serializable]
-public class Module  {
+public class Module {
 
+	[HideInInspector]
 	public Unit OwnerUnit;
-	public Transform AttachmentAnchor;
+	[SerializeField]
+	public Transform attachmentAnchor;
+	public Transform AttachmentAnchor{get { return attachmentAnchor; } private set{attachmentAnchor = value; }}
 
-	public Constants.ModuleTypes Type;
-	public Constants.ModeleSizes Size;
+	public UnitActionGroupTypes startActionGroup;
 
-	public Item AnchoredItem;
+	[SerializeField]
+	public ModuleTypes type;
+	public ModuleTypes Type{get { return type; } private set{type = value; }}
+	[SerializeField]
+	public ModeleSizes size;
+	public ModeleSizes Size{get { return size; } private set{size = value; }}
+
+	[SerializeField]
+	Item anchoredItem;
+	public Item AnchoredItem{get { return anchoredItem; } private set{anchoredItem = value; }}
 
 
 	public void AttachmentItem(Item item)
