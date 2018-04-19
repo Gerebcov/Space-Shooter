@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class KineticBullet : BaseBullet {
 
-	Rigidbody2D Rigidbody;
+	protected Rigidbody2D Rigidbody;
 
 	void Awake()
 	{
