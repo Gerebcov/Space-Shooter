@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class MachineGun : BaseWeapon {
 
-	CommonBullet bullet;
+
 	[SerializeField]
 	float maxAngelDeviation;
-	[SerializeField]
-	Transform spawnPoint;
 
 	enum MachineGunStates
 	{
@@ -18,7 +16,6 @@ public class MachineGun : BaseWeapon {
 
 	void Start () {
 		
-		bullet = BulletSaple.GetComponent <CommonBullet> ();
 		InitializeStateManager (typeof(MachineGunStates));
 		InitializeState (
 			(int)MachineGunStates.Idle,
@@ -46,8 +43,7 @@ public class MachineGun : BaseWeapon {
 	{
 		if (!Charged)
 			return;
-		bullet.StartVelocity = rigidbodyParent.velocity;
-		Instantiate (BulletSaple, spawnPoint.position, spawnPoint.rotation);
+		BulletSaple.SetStartVelosity(rigidbodyParent.velocity);
 		Fire ();
 	}
 

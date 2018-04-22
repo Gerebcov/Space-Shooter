@@ -99,6 +99,7 @@
      <Compile Include="Assets\Scripts\TurretController.cs" />
      <Compile Include="Assets\Scripts\WeaponScripts\BaseWeapon.cs" />
      <Compile Include="Assets\Scripts\WeaponScripts\FlareGun.cs" />
+     <Compile Include="Assets\Scripts\WeaponScripts\MachineGun.cs" />
      <Compile Include="Assets\Scripts\WindowProfiler.cs" />
      <Compile Include="Assets\Scripts\test.cs" />
      <None Include="Assets\Kenney Assets\Space Kit\License.txt" />
