@@ -11,21 +11,23 @@ public class BaseWeapon : Item {
 		get{return reloadingProgerss == 1;}
 	}
 	[SerializeField]
-	protected GameObject BulletSaple;
+	protected BaseBullet BulletSaple;
 	[SerializeField]
 	protected Rigidbody2D rigidbodyParent;
+	[SerializeField]
+	protected Transform spaunPoint = null;
 
-	protected Fractions fraction = Fractions.Environment;
-
-	public override void Establish(Module module)
+	public override void Establish(Unit unit, Transform attachmentAnchor)
 	{
-		rigidbodyParent = module.OwnerUnit.Rigidbodies[0];
-		fraction = module.OwnerUnit.Fraction;
-		Attachment (module.AttachmentAnchor);
+		unit.Mass = mass;
+		rigidbodyParent = unit.Rigidbodies[0];
+		BulletSaple.SetFraction(unit.Fraction);
+		Attachment (attachmentAnchor);
 	}
 
 	public virtual void Fire()
 	{
+		Instantiate (BulletSaple.gameObject, spaunPoint.position, spaunPoint.rotation);
 		reloadingProgerss = 0;
 		StartCoroutine (Reloading ());
 	}

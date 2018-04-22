@@ -16,7 +16,7 @@ public class StateManager : MonoBehaviour {
 
 	protected void InitializeState (int ID, StateMethod StartState, StateMethod UpdateState, StateMethod EndState)
 	{
-		stages [ID] = new State(StartState, UpdateState, EndState);
+		stages [ID] = new State(ID, StartState, UpdateState, EndState);
 
 	}
 
@@ -54,8 +54,9 @@ public class State
 	public StateMethod UpdateState;
 	public StateMethod EndState;
 
-	public State (StateMethod Start, StateMethod Update, StateMethod End)
+	public State (int stateID, StateMethod Start, StateMethod Update, StateMethod End)
 	{
+		StateID = stateID;
 		StartState = Start;
 		UpdateState = Update;
 		EndState = End;

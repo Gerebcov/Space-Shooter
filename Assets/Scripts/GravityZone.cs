@@ -32,7 +32,7 @@ public class GravityZone : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D coll)
 	{
 		Rigidbody2D rig = coll.attachedRigidbody;
-		if (rig != null && rig.bodyType != RigidbodyType2D.Kinematic)
+		if (rig != null && rig.bodyType != RigidbodyType2D.Kinematic && !GetDuplicate(rig))
 			rigi.Add (rig);
 	}
 
@@ -41,5 +41,15 @@ public class GravityZone : MonoBehaviour {
 		Rigidbody2D rig = coll.attachedRigidbody;
 		if (rig != null && rig.bodyType != RigidbodyType2D.Kinematic)
 			rigi.Remove (rig);
+	}
+
+	bool GetDuplicate(Rigidbody2D Rigidbody)
+	{
+		foreach (Rigidbody2D R in rigi) 
+		{
+			if (R == Rigidbody)
+				return true;
+		}
+		return false;
 	}
 }

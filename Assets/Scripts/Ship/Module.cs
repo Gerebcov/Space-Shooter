@@ -7,18 +7,17 @@ using UnityEngine;
 public class Module {
 
 	[HideInInspector]
-	public Unit OwnerUnit;
+	public Unit OwnerUnit = null;
 	[SerializeField]
-	public Transform attachmentAnchor;
-	public Transform AttachmentAnchor{get { return attachmentAnchor; } private set{attachmentAnchor = value; }}
+	Transform attachmentAnchor = null;
 
 	public UnitActionGroupTypes startActionGroup;
 
 	[SerializeField]
-	public ModuleTypes type;
+	ModuleTypes type;
 	public ModuleTypes Type{get { return type; } private set{type = value; }}
 	[SerializeField]
-	public ModeleSizes size;
+	ModeleSizes size;
 	public ModeleSizes Size{get { return size; } private set{size = value; }}
 
 	[SerializeField]
@@ -29,7 +28,7 @@ public class Module {
 	public void AttachmentItem(Item item)
 	{
 		AnchoredItem = item;
-		item.Establish (this);
+		item.Establish (OwnerUnit , attachmentAnchor);
 	}
 
 	public void PullOffItem()

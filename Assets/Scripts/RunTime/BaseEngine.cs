@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BaseEngine : Item {
-
+	
 	public enum EngineStates
 	{
 		Idle,
@@ -11,10 +11,10 @@ public class BaseEngine : Item {
 	}
 	
 	[SerializeField]
-	Rigidbody2D Rigidbody;
+	protected Rigidbody2D Rigidbody;
 	[SerializeField]
-	float Forse;
-	float UnitMass;
+	protected float Forse = 0;
+	protected float UnitMass;
 	[SerializeField]
 	float sqrMaxSpeed;
 
@@ -22,7 +22,7 @@ public class BaseEngine : Item {
 	bool AutoStart = false;
 
 	[SerializeField]
-	ParticleSystem particle = null;
+	protected ParticleSystem particle = null;
 
 	public void CalculateMaxSpeed()
 	{
@@ -48,11 +48,11 @@ public class BaseEngine : Item {
 		}
 	}
 	
-	public override void Establish(Module module)
+	public override void Establish(Unit unit, Transform attachmentAnchor)
 	{
-		Rigidbody = module.OwnerUnit.Rigidbodies[0];
-		Attachment (module.AttachmentAnchor);
-		UnitMass = module.OwnerUnit.Mass;
+		Rigidbody = unit.Rigidbodies[0];
+		Attachment (attachmentAnchor);
+		UnitMass = unit.Mass;
 		CalculateMaxSpeed ();
 	}
 
@@ -66,18 +66,18 @@ public class BaseEngine : Item {
 		SetState ((int)EngineStates.Idle);
 	}
 
-	void ActivStartHendler()
+	protected virtual void ActivStartHendler()
 	{
 		if (particle)
 			particle.Play (true);
 	}
 
-	void ActivUpdateHendler()
+	protected virtual void ActivUpdateHendler()
 	{
 		Rigidbody.AddForce((Vector2)transform.up * Forse * (1 - ((new Vector2(Mathf.Max(Rigidbody.velocity.x * transform.up.x, 0), Mathf.Max(Rigidbody.velocity.y * transform.up.y, 0)).sqrMagnitude / sqrMaxSpeed))) * TimeManager.LevelFrameTime, ForceMode2D.Impulse); 
 	}
 
-	void ActivEndHendler()
+	protected virtual void ActivEndHendler()
 	{
 		if (particle)
 			particle.Stop (true, ParticleSystemStopBehavior.StopEmitting);

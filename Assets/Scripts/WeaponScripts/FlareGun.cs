@@ -4,13 +4,6 @@ using UnityEngine;
 
 public class FlareGun : BaseWeapon {
 
-	[SerializeField]
-	Rocket rocket = null;
-	[SerializeField]
-	float startImpulse = 0;
-	[SerializeField]
-	Transform spaunPoint = null;
-
 	enum FlareGunStates
 	{
 		Idle,
@@ -19,7 +12,6 @@ public class FlareGun : BaseWeapon {
 
 	void Start()
 	{
-		rocket = BulletSaple.GetComponent<Rocket> ();
 		InitializeStateManager (typeof(FlareGunStates));
 		InitializeState ((int)FlareGunStates.Idle,
 			null,
@@ -47,19 +39,9 @@ public class FlareGun : BaseWeapon {
 	void FireUpdateHandler()
 	{
 		if (Charged) {
+			BulletSaple.SetStartVelosity (rigidbodyParent.velocity);
 			Fire ();
 		}
 	}
-
-	public override void Fire ()
-	{
-		rocket.fraction = fraction;
-		rocket.startImpulse = startImpulse;
-		rocket.startVelosity = rigidbodyParent.velocity;
-		Instantiate (BulletSaple, spaunPoint.position, spaunPoint.rotation);
-
-		base.Fire ();
-	}
-
 
 }

@@ -21,14 +21,16 @@ public class BaseGameObject : MonoBehaviour {
 
 	[SerializeField]
 	bool imortal = false;
-	public bool IsImortal {get {return imortal;}}
+	public bool IsImortal {get {return imortal;} set {imortal = value;}}
 	[SerializeField]
 	float maxHealsPoint = 0;
+	public float MaxHealsPoint{get{return maxHealsPoint;}}
+	[SerializeField]
 	float healsPoint;
 	public float HealsPoint{
 		get{ return healsPoint;} 
 		set{ if (!imortal) {
-				healsPoint = value;
+				healsPoint = Mathf.Clamp(value, 0, maxHealsPoint);
 				if (healsPoint <= 0)
 					Dead ();
 			}
@@ -56,7 +58,7 @@ public class BaseGameObject : MonoBehaviour {
 		}
 	}
 
-	public void Dead()
+	public virtual void Dead()
 	{
 		if(DeadFX)
 			Instantiate (DeadFX, transform.position, transform.rotation, transform.parent);
@@ -72,9 +74,10 @@ public class BaseGameObject : MonoBehaviour {
 	{
 		if(Rigidbodies.Length == 0)
 			Rigidbodies = GetComponentsInChildren<Rigidbody2D> ();
+		Rigidbodies [0].centerOfMass = Vector2.zero;
 		if (IsImortal)
 			return;
-		HealsPoint = maxHealsPoint;
+		HealsPoint = MaxHealsPoint;
 	}
 
 	public void AddedDamage(float Damage, DamageTypes type)
@@ -90,22 +93,24 @@ public class BaseGameObject : MonoBehaviour {
 		}
 		HealsPoint -= Damage * (1 - defensePersent);
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+
+	public void Healing(float healsPoint)
+	{
+		HealsPoint += healsPoint;
 	}
+
+
+	
 	void OnCollisionEnter2D(Collision2D collision) {
-		if (IsImortal)
+		if (IsImortal || collision.collider.isTrigger)
 			return;
 		float power = collision.relativeVelocity.magnitude;
-		AddedDamage(power / 10 / Mass, DamageTypes.Kinetic);
+		AddedDamage((power / 10) * Mass, DamageTypes.Kinetic);
 	}
 }
 [System.Serializable]
 public class Defenses
 {
 	public DamageTypes DefenseType;
-	[Range(0, 1)]
 	public float DefensePersent;
 }

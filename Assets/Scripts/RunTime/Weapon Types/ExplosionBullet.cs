@@ -5,11 +5,11 @@ using UnityEngine;
 public class ExplosionBullet : BaseBullet {
 
 	[SerializeField]
-	GameObject ExplosionForce = null;
+	GameObject ExplosionObject = null;
 
 	void OnDestroy()
 	{
-		Instantiate (ExplosionForce, transform.position, Quaternion.identity);
+		Instantiate (ExplosionObject, transform.position, Quaternion.identity);
 	}
 
 }

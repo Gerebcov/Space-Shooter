@@ -12,18 +12,31 @@ public class Sector : MonoBehaviour {
 	float sectorWallRange = 100;
 
 	[SerializeField]
-	CircleCollider2D sectorZone = null, sectorWall = null;
-
-	[SerializeField]
 	GameObject asteroidSample = null;
 	[SerializeField]
 	int maxAsteroid = 10;
 	[SerializeField]
 	float minForse = 0, maxForse = 20;
-
+	[SerializeField]
+	PolygonCollider2D polygonCollider = null;
 
 	GameObject[] asteroids;
 
+	void OnEnable()
+	{
+		if (!Application.isPlaying)
+			return;
+		if (!polygonCollider)
+			return;
+		Vector2[] points = new Vector2[720];
+		for (int i = 0; i < 360; i++) 
+		{
+			transform.Rotate (0, 0, 1);
+			points[i] = transform.up * sectorRange;
+			points[719 - i] = transform.up * (sectorRange + sectorWallRange);
+		}
+		polygonCollider.SetPath (0, points);
+	}
 
 	// Use this for initialization
 	void Start () {
@@ -60,12 +73,4 @@ public class Sector : MonoBehaviour {
 		}
 	}
 
-
-	#if UNITY_EDITOR
-	// Update is called once per frame
-	void Update () {
-		sectorZone.radius = sectorRange;
-		sectorWall.radius = sectorWallRange + sectorRange;
-	}
-	#endif
 }

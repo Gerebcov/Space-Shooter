@@ -14,9 +14,10 @@ public class Unit : BaseGameObject {
 	}
 
 	[SerializeField]
-	Module[] Modules;
+	Module[] modules = null;
+	public Module[] Modules {get {return modules;}}
 
-	public List<ActionGroup> ActionGroups = new List<ActionGroup> ();
+	List<ActionGroup> ActionGroups = new List<ActionGroup> ();
 
 	void Awake()
 	{

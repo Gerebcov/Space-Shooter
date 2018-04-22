@@ -4,18 +4,14 @@ using UnityEngine;
 
 public class KineticBullet : BaseBullet {
 
-	Rigidbody2D Rigidbody;
-
-	void Awake()
-	{
-		Rigidbody = GetComponent<Rigidbody2D> ();
-	}
+	float armorPiercing = 1;
 
 	public override void Contact (BaseGameObject Object)
 	{
-		Vector2 deltaVlocity = Rigidbody.velocity - Object.Rigidbodies[0].velocity;
-		Damage = deltaVlocity.magnitude * Rigidbody.mass;
-		Object.Rigidbodies[0].AddForce (deltaVlocity.normalized * Damage, ForceMode2D.Impulse);
+		Vector2 deltaVlocity = Rigidbodies[0].velocity - Object.Rigidbodies[0].GetVector(Rigidbodies[0].transform.up);
+		float ContactForce = deltaVlocity.magnitude * Rigidbodies[0].mass;
+		Object.Rigidbodies[0].AddForce (Rigidbodies[0].transform.up * ContactForce, ForceMode2D.Impulse);
+		Object.AddedDamage (ContactForce * armorPiercing, DamageTypes.Kinetic);
 	}
 
 }

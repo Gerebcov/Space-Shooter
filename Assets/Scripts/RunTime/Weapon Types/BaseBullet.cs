@@ -4,9 +4,37 @@ using UnityEngine;
 
 [RequireComponent(typeof(AutoDestroy))]
 public class BaseBullet : MonoBehaviour {
+	
+	[SerializeField]
+	float startAcceleration = 0;
+	[SerializeField]
+	Vector2 startVelosity = Vector2.zero;
+	[SerializeField]
+	protected Rigidbody2D[] Rigidbodies;
 
-	public float Damage;
-	public Fractions fraction = Fractions.Environment;
+	Fractions fraction;
+
+	void Start()
+	{
+		InitializationBullet ();
+	}
+
+	public virtual void InitializationBullet ()
+	{
+		foreach (Rigidbody2D R in Rigidbodies) {
+			R.velocity = startVelosity + ((Vector2)R.transform.up * startAcceleration);
+		}
+	}
+
+	public void SetFraction(Fractions Fraction)
+	{
+		fraction = Fraction;
+	}
+
+	public void SetStartVelosity(Vector2 StartVelosity)
+	{
+		startVelosity = StartVelosity;
+	}
 
 	public virtual void Contact(BaseGameObject Object)
 	{

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Item : StateManager {
 
 	[SerializeField]
-	float mass;
+	protected float mass = 0;
 
 	[SerializeField]
 	ModuleTypes itemTypes;
@@ -14,9 +14,10 @@ public class Item : StateManager {
 	ModeleSizes itemSize;
 	public ModeleSizes ItemSize{get { return itemSize; } private set{itemSize = value; }}
 
-	public virtual void Establish(Module module)
+	public virtual void Establish(Unit unit, Transform attachmentAnchor)
 	{
-		module.OwnerUnit.Mass += mass;
+		unit.Mass = mass;
+		Attachment (attachmentAnchor);
 	}
 
 	public virtual void PullOff()
