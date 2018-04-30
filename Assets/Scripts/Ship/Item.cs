@@ -5,7 +5,10 @@ using UnityEngine;
 public class Item : StateManager {
 
 	[SerializeField]
-	protected float mass = 0;
+	private float mass = 0;
+	public float Mass{get { return mass;}}
+
+	protected bool isActiv = false;
 
 	[SerializeField]
 	ModuleTypes itemTypes;
@@ -14,32 +17,43 @@ public class Item : StateManager {
 	ModeleSizes itemSize;
 	public ModeleSizes ItemSize{get { return itemSize; } private set{itemSize = value; }}
 
-	public virtual void Establish(Unit unit, Transform attachmentAnchor)
+	[SerializeField]
+	GameObject visualizeItem, visualizeDrop;
+	[SerializeField]
+	Texture visualizeImage;
+	public Texture VisualizeImage {get{return visualizeImage; }}
+
+	public virtual void Take()
 	{
-		unit.Mass = mass;
-		Attachment (attachmentAnchor);
+		if(visualizeDrop)
+			visualizeDrop.SetActive (false);
 	}
 
-	public virtual void PullOff()
+	public virtual void Establish(Unit unit)
 	{
-
+		if(visualizeItem)
+			visualizeItem.SetActive (true);
 	}
 
-	public virtual void Attachment(Transform AttachmentAnchor)
+	public virtual void Dismantle()
 	{
-		transform.parent = AttachmentAnchor;
-		transform.localPosition = Vector3.zero;
-		transform.localRotation = Quaternion.identity;
-		transform.localScale = Vector3.one;
+		if(visualizeItem)
+			visualizeItem.SetActive (false);
+	}
+
+	public void Drop()
+	{
+		if(visualizeDrop)
+			visualizeDrop.SetActive (true);
 	}
 
 	public virtual void ActivateItem()
 	{
-		
+		isActiv = true;
 	}
 
 	public virtual void DeactivateItem()
 	{
-
+		isActiv = false;
 	}
 }

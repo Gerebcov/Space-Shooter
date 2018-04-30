@@ -5,9 +5,9 @@ using UnityEngine;
 public class EnergyBullet : BaseBullet {
 	
 	[SerializeField]
-	float damage;
+	float damage = 100f;
 	[SerializeField]
-	float energyLoss;
+	float energyLoss = 0.1f;
 
 	void Update()
 	{
@@ -16,7 +16,8 @@ public class EnergyBullet : BaseBullet {
 
 	public override void Contact (BaseGameObject Object)
 	{
-		Object.AddedDamage (damage, DamageTypes.Energy);
+		if (Object.Fraction != fraction)
+			Object.AddedDamage (damage, DamageTypes.Energy);
 		Destroy (gameObject);
 	}
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(AutoDestroy))]
 public class BaseBullet : MonoBehaviour {
-	
+
 	[SerializeField]
 	float startAcceleration = 0;
 	[SerializeField]
@@ -12,7 +12,11 @@ public class BaseBullet : MonoBehaviour {
 	[SerializeField]
 	protected Rigidbody2D[] Rigidbodies;
 
-	Fractions fraction;
+	[SerializeField]
+	protected Fractions fraction;
+
+	[SerializeField]
+	int parentInstanceID = 0;
 
 	void Start()
 	{
@@ -26,26 +30,27 @@ public class BaseBullet : MonoBehaviour {
 		}
 	}
 
-	public void SetFraction(Fractions Fraction)
+	public void SetFraction(Fractions Fraction, int UnitID)
 	{
 		fraction = Fraction;
+		parentInstanceID = UnitID;
 	}
 
-	public void SetStartVelosity(Vector2 StartVelosity)
+	public void SetStartVelosity(float StartAcceleration, Vector2 StartVelosity)
 	{
 		startVelosity = StartVelosity;
+		startAcceleration = StartAcceleration;
 	}
 
 	public virtual void Contact(BaseGameObject Object)
 	{
-		if(Object.Fraction != fraction)
-			Destroy (gameObject);
+		Destroy (gameObject);
 	}
 
 	void OnTriggerEnter2D(Collider2D collider)
 	{
 		BaseGameObject contactObject = collider.GetComponent<BaseGameObject>();
-		if (collider.attachedRigidbody != null && contactObject != null)
+		if (collider.attachedRigidbody != null && contactObject != null && contactObject.GetInstanceID() != parentInstanceID)
 			Contact (contactObject);
 	}
 }

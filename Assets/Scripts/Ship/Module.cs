@@ -22,18 +22,32 @@ public class Module {
 
 	[SerializeField]
 	Item anchoredItem;
-	public Item AnchoredItem{get { return anchoredItem; } private set{anchoredItem = value; }}
+	public Item AnchoredItem{
+		get { return anchoredItem; } 
+		private set{
+			anchoredItem = value; 
+			Attachment ();
+		}}
 
 
 	public void AttachmentItem(Item item)
 	{
 		AnchoredItem = item;
-		item.Establish (OwnerUnit , attachmentAnchor);
+		item.Establish (OwnerUnit);
+	}
+
+	public void Attachment()
+	{
+		AnchoredItem.transform.parent = attachmentAnchor;
+		AnchoredItem.transform.localPosition = Vector3.zero;
+		AnchoredItem.transform.localRotation = Quaternion.identity;
+		AnchoredItem.transform.localScale = Vector3.one;
 	}
 
 	public void PullOffItem()
 	{
-		AnchoredItem.PullOff ();
+		AnchoredItem.transform.parent = null;
+		AnchoredItem.Dismantle ();
 		AnchoredItem = null;
 	}
 

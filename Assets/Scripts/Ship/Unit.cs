@@ -19,9 +19,13 @@ public class Unit : BaseGameObject {
 
 	List<ActionGroup> ActionGroups = new List<ActionGroup> ();
 
-	void Awake()
+	[SerializeField]
+	UnitInventory Inventory = new UnitInventory();
+
+	void Start()
 	{
 		Inicialization ();
+		Inventory.InitializationInventory (this);
 		foreach (Module M in Modules) {
 			M.OwnerUnit = this;
 			if (M.AnchoredItem != null) {
@@ -83,13 +87,4 @@ public class Unit : BaseGameObject {
 		}
 	}
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

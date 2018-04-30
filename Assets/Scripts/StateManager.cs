@@ -12,6 +12,7 @@ public class StateManager : MonoBehaviour {
 	protected void InitializeStateManager(System.Type Enum)
 	{
 		stages = new State[System.Enum.GetNames (Enum).Length];
+		StartCoroutine (StateUpdate ());
 	}
 
 	protected void InitializeState (int ID, StateMethod StartState, StateMethod UpdateState, StateMethod EndState)
@@ -22,13 +23,11 @@ public class StateManager : MonoBehaviour {
 
 	protected void SetState(int StateID)
 	{
-		StopCoroutine (StateUpdate ());
 		if (currentState != null && currentState.EndState != null)
 			currentState.EndState ();
 		currentState = stages [StateID];
 		if (currentState != null && currentState.StartState != null)
 			currentState.StartState ();
-		StartCoroutine (StateUpdate ());
 	}
 
 	IEnumerator StateUpdate()
@@ -36,8 +35,6 @@ public class StateManager : MonoBehaviour {
 		while (true) {
 			if (currentState != null && currentState.UpdateState != null) {
 				currentState.UpdateState ();
-			} else {
-				break;
 			}
 			yield return null;
 		}

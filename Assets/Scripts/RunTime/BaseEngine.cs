@@ -48,12 +48,12 @@ public class BaseEngine : Item {
 		}
 	}
 	
-	public override void Establish(Unit unit, Transform attachmentAnchor)
+	public override void Establish(Unit unit)
 	{
 		Rigidbody = unit.Rigidbodies[0];
-		Attachment (attachmentAnchor);
 		UnitMass = unit.Mass;
 		CalculateMaxSpeed ();
+		base.Establish (unit);
 	}
 
 	public override void ActivateItem()

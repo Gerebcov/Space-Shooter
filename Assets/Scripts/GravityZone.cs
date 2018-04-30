@@ -6,7 +6,7 @@ public class GravityZone : MonoBehaviour {
 	[SerializeField]
 	List<Rigidbody2D> rigi = new List<Rigidbody2D>();
 	[SerializeField]
-	float range, mass;
+	float range = 0, mass = 0;
 
 	float GConstans = 0.00667f;
 

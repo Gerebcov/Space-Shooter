@@ -7,7 +7,7 @@ public class ExplosionForceSimulator : MonoBehaviour {
 
 	List<Rigidbody2D> Rigidbodys = new List<Rigidbody2D>();
 	[SerializeField]
-	CircleCollider2D collider = null;
+	CircleCollider2D circleCollider = null;
 	public float Range;
 	float sqrRange;
 	public float Force;
@@ -15,7 +15,7 @@ public class ExplosionForceSimulator : MonoBehaviour {
 
 	void Start()
 	{
-		collider.radius = Range;
+		circleCollider.radius = Range;
 		sqrRange = Range * Range;
 	}
 	void OnEnable()

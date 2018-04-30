@@ -22,6 +22,16 @@ public class Shield : BaseGameObject {
 		gameObject.SetActive (false);
 	}
 
+	public override void Healing (float healsPoint)
+	{
+		
+	} 
+
+	public void Recharge(float energy)
+	{
+		HealsPoint += energy;
+	}
+
 	void OnTriggerEnter2D(Collider2D collider)
 	{
 		

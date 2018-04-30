@@ -29,7 +29,7 @@ public class BaseGameObject : MonoBehaviour {
 	float healsPoint;
 	public float HealsPoint{
 		get{ return healsPoint;} 
-		set{ if (!imortal) {
+		set{ if (!IsImortal || IsImortal && value >= healsPoint) {
 				healsPoint = Mathf.Clamp(value, 0, maxHealsPoint);
 				if (healsPoint <= 0)
 					Dead ();
@@ -80,7 +80,7 @@ public class BaseGameObject : MonoBehaviour {
 		HealsPoint = MaxHealsPoint;
 	}
 
-	public void AddedDamage(float Damage, DamageTypes type)
+	public virtual void AddedDamage(float Damage, DamageTypes type)
 	{
 		if (IsImortal)
 			return;
@@ -94,7 +94,7 @@ public class BaseGameObject : MonoBehaviour {
 		HealsPoint -= Damage * (1 - defensePersent);
 	}
 
-	public void Healing(float healsPoint)
+	public virtual void Healing(float healsPoint)
 	{
 		HealsPoint += healsPoint;
 	}

@@ -12,7 +12,7 @@ public class EnergyShield : Item {
 	[SerializeField]
 	float recoveryPerSecond = 0;
 
-	BaseGameObject objectInShield; 
+	Unit objectInShield; 
 
 	enum EnergyShieldStates
 	{
@@ -45,9 +45,8 @@ public class EnergyShield : Item {
 		SetState ((int)EnergyShieldStates.Idle);
 	}
 
-	public override void Establish(Unit unit, Transform attachmentAnchor)
+	public override void Establish(Unit unit)
 	{
-		unit.Mass = mass;
 		foreach (Rigidbody2D R in unit.Rigidbodies) 
 		{
 			foreach (Collider2D C in R.GetComponents<Collider2D>()) 
@@ -58,7 +57,7 @@ public class EnergyShield : Item {
 		objectInShield = unit;
 		shildObject.SetUnitParameters (unit.Rigidbodies);
 		shildObject.SetFraction (unit.Fraction);
-		Attachment (attachmentAnchor);
+		base.Establish (unit);
 	}
 
 	public override void ActivateItem()
@@ -82,7 +81,7 @@ public class EnergyShield : Item {
 	void IdleUpdateHandler()
 	{
 		if (shildObject.HealsPoint < shildObject.MaxHealsPoint)
-			shildObject.Healing (recoveryPerSecond * TimeManager.LevelFrameTime);
+			shildObject.Recharge (recoveryPerSecond * TimeManager.LevelFrameTime);
 	}
 
 	void ActivateStartHandler()
@@ -90,6 +89,7 @@ public class EnergyShield : Item {
 		SetActivBaseCollider (false);
 		objectInShield.IsImortal = true;
 		shildObject.gameObject.SetActive (true);
+		shildObject.IsImortal = false;
 	}
 
 	void ActivateUpdateHandler()
@@ -99,7 +99,7 @@ public class EnergyShield : Item {
 			return;
 		}
 		if (shildObject.HealsPoint < shildObject.MaxHealsPoint)
-			shildObject.Healing (recoveryPerSecond * 0.25f * TimeManager.LevelFrameTime);
+			shildObject.Recharge (recoveryPerSecond * 0.25f * TimeManager.LevelFrameTime);
 	}
 
 	void ActivateEndHandler()
@@ -107,6 +107,7 @@ public class EnergyShield : Item {
 		shildObject.gameObject.SetActive (false);
 		objectInShield.IsImortal = false;
 		SetActivBaseCollider (true);
+		shildObject.IsImortal = true;
 	}
 
 	void RechargeStartHandler()
@@ -116,7 +117,7 @@ public class EnergyShield : Item {
 
 	void RechargeUpdateHandler()
 	{
-		shildObject.Healing (recoveryPerSecond * 0.5f * TimeManager.LevelFrameTime);
+		shildObject.Recharge (recoveryPerSecond * 0.5f * TimeManager.LevelFrameTime);
 		if (shildObject.HealsPoint == shildObject.MaxHealsPoint)
 			SetState ((int)EnergyShieldStates.Idle);
 	}
