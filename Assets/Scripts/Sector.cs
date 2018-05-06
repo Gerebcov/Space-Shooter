@@ -31,9 +31,10 @@ public class Sector : MonoBehaviour {
 		Vector2[] points = new Vector2[720];
 		for (int i = 0; i < 360; i++) 
 		{
-			transform.Rotate (0, 0, 1);
-			points[i] = transform.up * sectorRange;
-			points[719 - i] = transform.up * (sectorRange + sectorWallRange);
+			float angl = i / Mathf.Rad2Deg;
+			Vector2 v = new Vector2(Mathf.Sin(angl), Mathf.Cos(angl));
+			points[i] = v * sectorRange;
+			points[719 - i] = v * (sectorRange + sectorWallRange);
 		}
 		polygonCollider.SetPath (0, points);
 	}
@@ -45,7 +46,8 @@ public class Sector : MonoBehaviour {
 		asteroids = new GameObject[maxAsteroid];
 		for(int i = 0; i < maxAsteroid / 2; i++)
 		{
-			Vector3 spaynPoint = new Vector3 (Random.Range (-sectorRange, sectorRange), Random.Range (-sectorRange, sectorRange), 0);
+			float angleSpaun = Random.Range (0, 360) / Mathf.Rad2Deg;
+			Vector3 spaynPoint = new Vector3 (Mathf.Sin(angleSpaun), Mathf.Cos(angleSpaun), 0) * Random.Range(0, sectorRange);
 			float angle = Random.Range (0, 360);
 			GameObject g = (GameObject)Instantiate (asteroidSample, spaynPoint, Quaternion.Euler(0, 0, angle));
 			asteroids[i] = g;
@@ -59,11 +61,10 @@ public class Sector : MonoBehaviour {
 		while (true) {
 			for (int i = 0; i < maxAsteroid; i++) {
 				if (asteroids [i] == null) {
-					Vector3 spaynVector = new Vector3 (Random.Range (-1, 1), Random.Range (-1, 1), 0);
-					if (spaynVector.magnitude == 0)
-						spaynVector = Vector3.up * Random.Range(0.1f, 1);
+					float angleSpaun = Random.Range (0, 360) / Mathf.Rad2Deg;
+					Vector3 spaynPoint = new Vector3 (Mathf.Sin(angleSpaun), Mathf.Cos(angleSpaun), 0) * sectorRange;
 					float angle = Random.Range (0, 360);
-					GameObject newAsteroid = (GameObject)Instantiate (asteroidSample, transform.position + (spaynVector.normalized * sectorRange), Quaternion.Euler (0, 0, angle));
+					GameObject newAsteroid = (GameObject)Instantiate (asteroidSample, spaynPoint, Quaternion.Euler (0, 0, angle));
 					asteroids[i] = newAsteroid;
 					newAsteroid.transform.parent = transform;
 					newAsteroid.GetComponent<Rigidbody2D> ().AddForce (newAsteroid.transform.up * Random.Range (minForse, maxForse), ForceMode2D.Impulse);

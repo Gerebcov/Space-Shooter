@@ -1,22 +1,11 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\WeaponScripts\AutomaticTurret.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\NavigationTest.cs">
     <Files>
-      <File FileName="Assets\Scripts\GameControll\GameControler.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\GameControll\UI\UIElement.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\GameControll\UI\UIInputController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\GameControll\UI\UIButton.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\TimeManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Helpers\UICameraZone.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Player.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\WeaponScripts\AutomaticTurret.cs" Line="117" Column="95" />
-      <File FileName="Assets\Scripts\StateManager.cs" Line="38" Column="5" />
-      <File FileName="Assets\Scripts\Ship\Unit.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Ship\Module.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\RunTime\Weapon Types\KineticBullet.cs" Line="5" Column="34" />
-      <File FileName="Assets\Scripts\RunTime\Weapon Types\BaseBullet.cs" Line="26" Column="1" />
-      <File FileName="Assets\Scripts\WeaponScripts\BaseWeapon.cs" Line="20" Column="32" />
-      <File FileName="Assets\Scripts\Ship\Item.cs" Line="5" Column="30" />
+      <File FileName="Assets\Scripts\NavigationTest.cs" Line="66" Column="39" />
+      <File FileName="Assets\Scripts\WeaponScripts\AutomaticTurret.cs" Line="130" Column="125" />
+      <File FileName="Assets\Scripts\Sector.cs" Line="67" Column="82" />
+      <File FileName="Assets\Scripts\Player.cs" Line="79" Column="106" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

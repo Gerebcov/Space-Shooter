@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BaseWeapon : Item {
 
+	protected static GameObject bulletParent; 
+
 	enum WeaponStates
 	{
 		Idle,
@@ -61,6 +63,8 @@ public class BaseWeapon : Item {
 			ReloadingEndHandler
 		);
 		SetState((int)WeaponStates.Idle);
+		if (!bulletParent)
+			bulletParent = new GameObject ("Bullets");
 	}
 
 	public override void ActivateItem ()
@@ -125,7 +129,7 @@ public class BaseWeapon : Item {
 	public override void Establish(Unit unit)
 	{
 		rigidbodyParent = unit.Rigidbodies[0];
-		BulletSaple.SetFraction(unit.Fraction, unit.GetInstanceID());
+		BulletSaple.SetFraction(unit.Fraction, unit.ID);
 		base.Establish (unit);
 	}
 
@@ -134,7 +138,7 @@ public class BaseWeapon : Item {
 		if (deflectionAngle != 0)
 			spaunPoint.localEulerAngles = new Vector3 (0, 0, Random.Range (-deflectionAngle, deflectionAngle));
 		BulletSaple.SetStartVelosity (bulletAcceleration, useRelativeVelosity? rigidbodyParent.velocity: Vector2.zero);
-		Instantiate (BulletSaple.gameObject, spaunPoint.position, spaunPoint.rotation);
+		Instantiate (BulletSaple.gameObject, spaunPoint.position, spaunPoint.rotation, bulletParent.transform);
 	}
 
 }

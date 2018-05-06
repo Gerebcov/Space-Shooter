@@ -68,7 +68,7 @@ public class AutomaticTurret : Item {
 	public override void Establish (Unit unit)
 	{
 		myFraction = unit.Fraction;
-		parentID = unit.GetInstanceID ();
+		parentID = unit.ID;
 		weapon.Establish (unit);
 		SetState ((int)TurretStates.Activ);
 		base.Establish (unit);
@@ -95,7 +95,7 @@ public class AutomaticTurret : Item {
 	{
 		if (agroList.Count != 0) {
 			for (int i = 0; i < agroList.Count; i++) {
-				if (!agroList [i].gameObject.activeSelf) {
+				if (agroList [i].gameObject == null || (agroList [i].gameObject && !agroList [i].gameObject.activeSelf)) {
 					agroList.Remove (agroList [i]);
 					i--;
 				} else if (!agroList [i].IsImortal) {
@@ -137,14 +137,21 @@ public class AutomaticTurret : Item {
 		if (hits.Length != 0)
 		{
 			foreach (RaycastHit2D hit in hits) {
-				BaseGameObject hitObject = hit.collider.GetComponent<BaseGameObject> ();
-				if (hitObject && hitObject.GetInstanceID () != parentID && (hitObject.IsImortal || hitObject.Fraction == myFraction)) 
-				{
-					if (agroList.Count > 1)
-						GetAnotherGoal ();
-					else
-						IsFire = false;
-					return;
+				if (!hit.collider.isTrigger) {
+					BaseGameObject hitObject = hit.collider.GetComponent<BaseGameObject> ();
+					if (hitObject == null && hit.collider.attachedRigidbody != null)
+						hitObject = hit.collider.attachedRigidbody.GetComponent<BaseGameObject> ();
+					if (hitObject && hitObject.ID != parentID) {
+						if (hitObject == currentTarget)
+							break;
+						if (hitObject.IsImortal || hitObject.Fraction == myFraction) {
+							if (agroList.Count > 1)
+								GetAnotherGoal ();
+							else
+								IsFire = false;
+							return;
+						}
+					}
 				}
 			}
 		}

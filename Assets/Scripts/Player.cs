@@ -20,9 +20,24 @@ public class Player : MonoBehaviour {
 
 	[SerializeField]
 	float cameraOffset;
-
+	[SerializeField]
+	ContactFilter2D filter = new ContactFilter2D ();
+	[SerializeField]
+	Collider2D col;
 	// Update is called once per frame
 	void Update () {
+//		for (int a = 0; a < 180; a++) {
+//			for (int i = 0; i < 360; i += 5) {
+//				float r = i * Mathf.Deg2Rad;
+//				RaycastHit2D[] hits = new RaycastHit2D[1];
+//				if (col.Raycast (new Vector2 (Mathf.Cos (r), Mathf.Sin (r)), filter, hits, 300f) > 0) {
+//					for (int h = 0; h < hits.Length; h++) {
+////							Debug.DrawRay (PlayerShip.transform.position, new Vector3 (Mathf.Cos (r), Mathf.Sin (r), 0) * hits [h].distance, Color.red);
+//							break;
+//					}
+//				}
+//			}
+//		}
 
 		if (PlayerShip == null) {
 			SceneManager.LoadScene (SceneManager.GetActiveScene ().name);

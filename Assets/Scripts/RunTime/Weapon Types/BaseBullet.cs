@@ -49,8 +49,12 @@ public class BaseBullet : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D collider)
 	{
+		if (collider.isTrigger)
+			return;
 		BaseGameObject contactObject = collider.GetComponent<BaseGameObject>();
-		if (collider.attachedRigidbody != null && contactObject != null && contactObject.GetInstanceID() != parentInstanceID)
+		if (contactObject == null && collider.attachedRigidbody != null)
+			contactObject = collider.attachedRigidbody.GetComponent<BaseGameObject> ();
+		if (contactObject != null && contactObject.ID != parentInstanceID)
 			Contact (contactObject);
 	}
 }

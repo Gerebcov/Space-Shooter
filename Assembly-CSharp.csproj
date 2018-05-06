@@ -83,6 +83,7 @@
      <Compile Include="Assets\Scripts\Helpers\UICameraZone.cs" />
      <Compile Include="Assets\Scripts\InputController.cs" />
      <Compile Include="Assets\Scripts\LevelController.cs" />
+     <Compile Include="Assets\Scripts\NavigationTest.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
      <Compile Include="Assets\Scripts\RunTime\BaseEngine.cs" />
      <Compile Include="Assets\Scripts\RunTime\Helpers\AutoDestroy.cs" />

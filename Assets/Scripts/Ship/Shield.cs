@@ -7,14 +7,12 @@ public class Shield : BaseGameObject {
 	[SerializeField]
 	ParticleSystem particleContact;
 
-	public void SetUnitParameters(Rigidbody2D[] rigidbody)
+	public void SetParentUnit(Unit unit)
 	{
-		Rigidbodies = rigidbody;
-	}
-
-	public void SetFraction(Fractions fraction)
-	{
-		Fraction = fraction;
+		id = unit.ID;
+		parent = unit;
+		Rigidbodies = unit.Rigidbodies;
+		Fraction = unit.Fraction;
 	}
 
 	public override void Dead ()

@@ -55,8 +55,7 @@ public class EnergyShield : Item {
 			}
 		}
 		objectInShield = unit;
-		shildObject.SetUnitParameters (unit.Rigidbodies);
-		shildObject.SetFraction (unit.Fraction);
+		shildObject.SetParentUnit (unit);
 		base.Establish (unit);
 	}
 

@@ -3,7 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BaseGameObject : MonoBehaviour {
-	
+
+	protected int id = 0;
+	public int ID {get{return id;}}
+
+	[SerializeField]
+	protected BaseGameObject parent = null;
+
 
 	[SerializeField]
 	protected string unitName;
@@ -75,6 +81,10 @@ public class BaseGameObject : MonoBehaviour {
 		if(Rigidbodies.Length == 0)
 			Rigidbodies = GetComponentsInChildren<Rigidbody2D> ();
 		Rigidbodies [0].centerOfMass = Vector2.zero;
+		if (parent)
+			id = parent.GetInstanceID ();
+		else
+			id = GetInstanceID ();
 		if (IsImortal)
 			return;
 		HealsPoint = MaxHealsPoint;
